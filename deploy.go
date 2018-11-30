@@ -62,7 +62,7 @@ func main() {
 
 	// create gopher folder and cd into it
 	err := os.Mkdir("gophers", 777)
-	must(err)
+	handle(err)
 	err = os.Chdir("gophers")
 	must(err)
 
