@@ -95,7 +95,9 @@ func downloadAll() {
 		DLAndWriteFromList(gopherLinks)
 		return
 	}
+	logger.Printf("response: %v\n", string(b))
 	list := strings.Split(string(b), "\n")
+	logger.Printf("list: %v\n", list)
 	DLAndWriteFromList(list)
 }
 
