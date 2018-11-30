@@ -3,6 +3,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -101,9 +102,7 @@ func downloadAll() {
 		DLAndWriteFromList(gopherLinks)
 		return
 	}
-	logger.Printf("response: %v\n", string(b))
 	list := strings.Split(string(b), "\n")
-	logger.Printf("list: %v\n", list)
 	DLAndWriteFromList(list)
 }
 
@@ -113,11 +112,9 @@ func DLAndWriteFromList(list []string) {
 		// Download and write with a filename equal
 		// to index plus the part after the last dot
 		dot := strings.LastIndexAny(value, ".")
-		logger.Println("Dot =", dot)
 		switch value[dot:] {
 		case ".png", ".jpg", ".jpeg":
-			fname := string(index) + value[dot:]
-			logger.Println("fname",fname)
+			fname := fmt.Sprintf("%d%s", index, value[dot:])
 			DLAndWrite(value, fname)
 		default:
 			logger.Println(value, "is not a valid image url.")
@@ -138,6 +135,7 @@ func DLAndWrite(URL string, filename string) {
 
 	// Now we've downloaded it write it to a file
 	err = ioutil.WriteFile(filename, bytes, 777)
+	handle(err)
 }
 
 // Error handling functions
