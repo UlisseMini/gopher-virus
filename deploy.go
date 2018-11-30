@@ -113,9 +113,12 @@ func DLAndWriteFromList(list []string) {
 		// Download and write with a filename equal
 		// to index plus the part after the last dot
 		dot := strings.LastIndexAny(value, ".")
+		logger.Println("Dot =", dot)
 		switch value[dot:] {
 		case ".png", ".jpg", ".jpeg":
-			DLAndWrite(value, string(index)+value[dot:])
+			fname := string(index) + value[dot:]
+			logger.Println("fname",fname)
+			DLAndWrite(value, fname)
 		default:
 			logger.Println(value, "is not a valid image url.")
 		}
