@@ -138,6 +138,7 @@ func handle(err error) {
 
 func must(err error) {
 	if err != nil {
+		logger.Print("[FATAL] ")
 		logger.Fatalf("%v\n", err)
 	}
 }
